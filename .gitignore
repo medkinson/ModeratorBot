@@ -1,2 +1,3 @@
 .env
 bot/handlers/__pycache__/start.cpython-313.pyc
+bot/utils/__pycache__/admin_check.cpython-313.pyc
