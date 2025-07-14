@@ -13,6 +13,6 @@ def can_restrict_check():
             if (isinstance(member, ChatMemberAdministrator) and member.can_restrict_members) or (isinstance(member, ChatMemberOwner)):
                 return await func(message)
             else:
-                await message.reply("govno nishe")
+                await message.reply("govno, get admin perms first")
         return wrapper
     return decorator
