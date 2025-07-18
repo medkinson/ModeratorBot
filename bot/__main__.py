@@ -3,17 +3,18 @@ import asyncio
 import logging
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-from bot.handlers import start, mute
+from bot.handlers import start, mute, unmute
 
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 async def main() -> None:
-
-    bot = Bot(token=os.getenv("BOT_TOKEN"))
+    if not BOT_TOKEN:
+        raise ValueError("no bot token detected in .env file")
+    bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
 
-    dp.include_routers(start.router, mute.router)
+    dp.include_routers(start.router, mute.router, unmute.router)
 
     await dp.start_polling(bot)
 
