@@ -3,7 +3,7 @@ import asyncio
 import logging
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-from bot.handlers import start, mute, unmute
+from bot.handlers import start, mute, unmute, ban
 
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
@@ -14,7 +14,7 @@ async def main() -> None:
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
 
-    dp.include_routers(start.router, mute.router, unmute.router)
+    dp.include_routers(start.router, mute.router, unmute.router, ban.router)
 
     await dp.start_polling(bot)
 

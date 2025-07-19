@@ -7,3 +7,4 @@ bot/handlers/__pycache__/__init__.cpython-313.pyc
 bot/utils/__pycache__/__init__.cpython-313.pyc
 bot/utils/__pycache__/parse_time.cpython-313.pyc
 bot/handlers/__pycache__/unmute.cpython-313.pyc
+bot/handlers/__pycache__/ban.cpython-313.pyc
