@@ -27,7 +27,7 @@ async def handle_unmute(message: Message, *args, **kwargs) -> None:
     member = await message.bot.get_chat_member(message.chat.id, message.reply_to_message.from_user.id)
 
     if (isinstance(member, ChatMemberAdministrator)) or (isinstance(member, ChatMemberOwner)):
-        return await message.answer("Размьючивать можно только пользователей без админских прав.")
+        return await message.answer("Данная команда применима только к пользователям без админских прав.")
     
     await message.bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id, permissions=UNMUTE_PERMS)
     await message.answer(f"{message.reply_to_message.from_user.first_name} был успешно размьючен админом {message.from_user.first_name}!")
