@@ -8,4 +8,9 @@ bot/utils/__pycache__/__init__.cpython-313.pyc
 bot/utils/__pycache__/parse_time.cpython-313.pyc
 bot/handlers/__pycache__/unmute.cpython-313.pyc
 bot/handlers/__pycache__/ban.cpython-313.pyc
-chatstats.db
+bot/utils/__pycache__/db.cpython-313.pyc
+bot/middlewares/__pycache__/db.cpython-313.pyc
+bot/middlewares/__pycache__/__init__.cpython-313.pyc
+bot/database/__pycache__/base.cpython-313.pyc
+bot/database/__pycache__/models.cpython-313.pyc
+bot/handlers/__pycache__/warn.cpython-313.pyc
