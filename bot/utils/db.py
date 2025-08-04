@@ -3,6 +3,8 @@ from aiogram.types import Message
 from aiogram.filters import CommandObject
 from bot.database.models import ModeratorStats
 
+# Луиджи Чесноков был здесь
+
 def users_in_db_required(func):
     async def wrapper(message: Message, command: CommandObject, session: AsyncSession, *args, **kwargs):
         chat_id = message.chat.id

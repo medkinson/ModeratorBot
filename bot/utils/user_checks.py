@@ -15,7 +15,7 @@ def replied_user_is_not_admin_required(func):
         if isinstance(member, ChatMemberAdministrator) or isinstance(member, ChatMemberOwner):
             return await message.answer("Данная команда применима только к пользователям без админских прав.")
         else:
-            await func(message, *args, **kwargs)
+            return await func(message, *args, **kwargs)
     return wrapper
 
 def replied_user_is_not_bot_required(func):
