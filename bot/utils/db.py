@@ -6,6 +6,11 @@ from bot.database.models import ModeratorStats
 # Луиджи Чесноков был здесь
 
 def users_in_db_required(func):
+    """
+    Decorator that ensures both the executing user and the replied-to user have ModeratorStats entries in the database for the current chat before calling the decorated async handler.
+    
+    If either user does not exist in the ModeratorStats table, a new entry with zero warns is created and committed.
+    """
     async def wrapper(message: Message, command: CommandObject, session: AsyncSession, *args, **kwargs):
         chat_id = message.chat.id
         user_id = message.from_user.id
