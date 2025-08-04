@@ -14,3 +14,5 @@ bot/middlewares/__pycache__/__init__.cpython-313.pyc
 bot/database/__pycache__/base.cpython-313.pyc
 bot/database/__pycache__/models.cpython-313.pyc
 bot/handlers/__pycache__/warn.cpython-313.pyc
+bot/utils/__pycache__/perm_checks.cpython-313.pyc
+bot/utils/__pycache__/user_checks.cpython-313.pyc
