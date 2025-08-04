@@ -1,7 +1,8 @@
 from aiogram import Router
 from aiogram.filters import Command
-from aiogram.types import Message, ChatPermissions, ChatMemberOwner, ChatMemberAdministrator
-from bot.utils.admin_check import can_restrict_check
+from aiogram.types import Message, ChatPermissions
+from bot.utils.user_checks import reply_required, replied_user_is_not_bot_required, replied_user_is_not_admin_required
+from bot.utils.perm_checks import restrict_perm_required
 
 router=Router()
 
@@ -17,17 +18,10 @@ UNMUTE_PERMS = ChatPermissions(
 )
 
 @router.message(Command("unmute"))
-@can_restrict_check
+@reply_required
+@replied_user_is_not_bot_required
+@replied_user_is_not_admin_required
+@restrict_perm_required
 async def handle_unmute(message: Message, *args, **kwargs) -> None:
-    if not message.reply_to_message:
-        return await message.answer("Данная команда применима только к ответу на сообщение.")
-    if message.reply_to_message and message.reply_to_message.from_user.is_bot:
-        return await message.answer("Данная команда применима только к пользователям.")
-    
-    member = await message.bot.get_chat_member(message.chat.id, message.reply_to_message.from_user.id)
-
-    if (isinstance(member, ChatMemberAdministrator)) or (isinstance(member, ChatMemberOwner)):
-        return await message.answer("Данная команда применима только к пользователям без админских прав.")
-    
     await message.bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id, permissions=UNMUTE_PERMS)
     await message.answer(f"{message.reply_to_message.from_user.first_name} был успешно размьючен админом {message.from_user.first_name}!")

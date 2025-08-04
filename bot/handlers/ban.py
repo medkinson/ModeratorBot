@@ -1,23 +1,18 @@
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command, CommandObject
-from aiogram.types import ChatMemberAdministrator, ChatMemberOwner
-from bot.utils.admin_check import can_restrict_check
+from bot.utils.perm_checks import restrict_perm_required
+from bot.utils.user_checks import reply_required, replied_user_is_not_bot_required, replied_user_is_not_admin_required
 from bot.utils.parse_time import parse_time
 
 router = Router()
 
 @router.message(Command("ban"))
-@can_restrict_check
+@reply_required
+@replied_user_is_not_bot_required
+@replied_user_is_not_admin_required
+@restrict_perm_required
 async def handle_ban(message: Message, command: CommandObject, *args, **kwargs):
-    if not message.reply_to_message:
-        return await message.answer("Неверный формат ввода команды! Пример: /ban <1m/1h/1d> <причина>, где 1 - число единиц времени, m/h/d - единицы времени (минуты, часы, дни соответственно)")
-    if message.reply_to_message.from_user.is_bot:
-        return await message.answer("Данная команда применима только к пользователям.")
-    
-    member = await message.bot.get_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
-    if isinstance(member, ChatMemberAdministrator) or isinstance(member, ChatMemberOwner):
-        return await message.answer("Данная команда применима только к пользователям без админских прав.")
     if command.args:
         arguments = command.args.split(maxsplit=2)
         time = arguments[0]

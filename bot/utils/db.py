@@ -3,8 +3,8 @@ from aiogram.types import Message
 from aiogram.filters import CommandObject
 from bot.database.models import ModeratorStats
 
-def are_users_in_db(func):
-    async def wrapper(message: Message, session: AsyncSession, command: CommandObject, *args, **kwargs):
+def users_in_db_required(func):
+    async def wrapper(message: Message, command: CommandObject, session: AsyncSession, *args, **kwargs):
         chat_id = message.chat.id
         user_id = message.from_user.id
 
@@ -17,10 +17,7 @@ def are_users_in_db(func):
             )
             session.add(executing_user)
             await session.commit()
-        
-        if not message.reply_to_message:
-            return await message.answer("Данная команда применима только в ответ на сообщение.")
-        
+                
         replied_user_id = message.reply_to_message.from_user.id
 
         replied_user = await session.get(ModeratorStats, {"chat_id": chat_id, "telegram_id": replied_user_id})
