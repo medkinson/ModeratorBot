@@ -4,7 +4,7 @@ from aiogram.filters import CommandObject
 from bot.database.models import ModeratorStats
 
 def users_in_db_required(func):
-    async def wrapper(message: Message, session: AsyncSession, command: CommandObject, *args, **kwargs):
+    async def wrapper(message: Message, command: CommandObject, session: AsyncSession, *args, **kwargs):
         chat_id = message.chat.id
         user_id = message.from_user.id
 

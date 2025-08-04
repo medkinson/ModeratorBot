@@ -23,5 +23,5 @@ def replied_user_is_not_bot_required(func):
         if message.reply_to_message.from_user.is_bot:
             return await message.answer("Данная команда применима только к пользователям.")
         else:
-            await func(message, *args, **kwargs)
+            return await func(message, *args, **kwargs)
     return wrapper

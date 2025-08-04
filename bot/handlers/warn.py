@@ -25,7 +25,9 @@ async def handle_warn(message: Message, command: CommandObject, session: AsyncSe
     reason = command.args
 
     if replied_user.warns == WARN_LIMIT-1:
-        await message.answer(
+        replied_user.warns += 1
+        await session.commit()
+        return await message.answer(
         f"{message.reply_to_message.from_user.first_name} был успешно предупрежден админом {message.from_user.first_name} "+
         (f"по причине: {reason}! Достигнут максимум предупреждений - примите действия!" if reason else "без указания причины! Достигнут максимум предупреждений - примите действия!")           
         )
@@ -33,8 +35,10 @@ async def handle_warn(message: Message, command: CommandObject, session: AsyncSe
     elif replied_user.warns < WARN_LIMIT:
         replied_user.warns += 1
         await session.commit()
-        await message.answer(
+        return await message.answer(
         f"{message.reply_to_message.from_user.first_name} был успешно предупрежден админом {message.from_user.first_name} "+
         (f"по причине: {reason}! Теперь у него {replied_user.warns}/{WARN_LIMIT} предупреждений!" if reason else f"без указания причины! Теперь у него {replied_user.warns}/{WARN_LIMIT} предупреждений!")           
         )
-    
+
+    else:
+        await message.answer(f"У {message.reply_to_message.from_user.first_name} и так максимум предупреждений! Примите меры!")
